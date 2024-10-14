@@ -10,7 +10,7 @@ export const UserProvider = ({ children }) => {
   const [tokens, setTokens] = useState(0);
   const [prizes, setPrizes] = useState([]);
   const [walletAccount, setWalletAccount] = useState('');
-
+  
   useEffect(() => {
     const loadUserData = async () => {
       const user = auth.currentUser;

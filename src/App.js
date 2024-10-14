@@ -19,8 +19,7 @@ function App() {
           
           {/* Rutas protegidas para usuarios autenticados */}
           <Route path="/menu" element={<ProtectedRoute><MainMenu /></ProtectedRoute>} />
-          <Route path="/game" element={<ProtectedRoute><GamePage /></ProtectedRoute>} />
-          <Route path="/store" element={<ProtectedRoute><StorePage /></ProtectedRoute>} />
+          <Route path="/game" element={<ProtectedRoute><GamePage /></ProtectedRoute>} />          <Route path="/store" element={<ProtectedRoute><StorePage /></ProtectedRoute>} />
           <Route path="/wallet" element={<ProtectedRoute><WalletConnectPage /></ProtectedRoute>} />
         </Routes>
       </Router>
