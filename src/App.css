@@ -1,3 +1,10 @@
+body {
+  font-family: 'Press Start 2P', cursive;
+  margin: 0; /* Asegúrate de eliminar cualquier margen */
+  padding: 0; /* Asegúrate de eliminar cualquier relleno */
+  background-color: black; /* Opcional: Cambia el fondo si es necesario */
+}
+
 .App {
   text-align: center;
 }
@@ -14,7 +21,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: transparent;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

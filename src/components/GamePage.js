@@ -1,8 +1,10 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useUser } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
+import '../styles/GamePage.css';
 
 const GamePage = () => {
+  const timeElapsedRef = useRef(0); // Tiempo transcurrido
   const [playerY, setPlayerY] = useState(200);
   const [obstacles, setObstacles] = useState([]);
   const [coinsOnMap, setCoinsOnMap] = useState([]);
@@ -18,7 +20,7 @@ const GamePage = () => {
 
   const navigate = useNavigate();
 
-  const minDistance = 20;
+  const minDistance = 70;
 
   const isOverlapping = (x, y) => {
     const isCoinOverlap = coinsOnMap.some(coin => 
@@ -107,7 +109,18 @@ const GamePage = () => {
         setGreenBulletsOnMap(prev =>
           prev.map(greenBullet => ({ ...greenBullet, x: greenBullet.x - 5 }))
         );
-  
+        
+        const DISTANCIA_ELIMINACION = 83.4; // 3 cm en píxeles
+
+        setObstacles(prev =>
+          prev.filter(obstacle => obstacle.x > 50 - DISTANCIA_ELIMINACION) // Mantén los obstáculos que están a la derecha del jugador menos 3 cm
+        );
+
+        setCoinsOnMap(prev =>
+          prev.filter(coin => coin.x > 50 - DISTANCIA_ELIMINACION) // Mantén las monedas que están a la derecha del jugador menos 3 cm
+        );
+
+
         // Generar nuevos obstáculos, monedas y balas solo si la bandera no es visible
         if (!flagVisible) {
           if (Math.random() < 0.05) {
@@ -172,13 +185,20 @@ const GamePage = () => {
   
         detectBulletCollision();
   
-        // Mover la bandera hacia el jugador
+        // Lógica para la bandera
         if (flagVisible) {
           setFlag(prevFlag => ({
             x: prevFlag.x - 5,
             y: prevFlag.y
           }));
+        } else {
+          timeElapsedRef.current += 100; // Incrementar el tiempo transcurrido en 100ms
+
+          if (timeElapsedRef.current >= 30000) { // Si han pasado 10 segundos
+            setFlagVisible(true);
+          }
         }
+
   
         // Detección de colisión con la bandera
         if (detectFlagCollision()) {
@@ -281,98 +301,115 @@ const GamePage = () => {
 
   return (
     <div className="game-page">
-      <h2>Juego de Monedas</h2>
-      <p>Monedas actuales: {coins}</p>
-
-      {isGameStarted && (
-        <div className="game-screen">
-          <div 
-            className="player" 
-            style={{ position: 'absolute', left: '50px', top: `${playerY}px`, width: '20px', height: '20px', background: 'blue' }} 
-          />
-          {obstacles.map((obstacle, index) => (
-            <div
-              key={index}
-              className="obstacle"
-              style={{
-                position: 'absolute',
-                left: `${obstacle.x}px`,
-                top: `${obstacle.y}px`,
-                width: `${obstacle.width}px`,
-                height: `${obstacle.height}px`,
-                background: 'red'
-              }}
-            />
-          ))}
-          {coinsOnMap.map((coin, index) => (
-            <div
-              key={index}
-              className="coin"
-              style={{
-                position: 'absolute',
-                left: `${coin.x}px`,
-                top: `${coin.y}px`,
-                width: `${coin.radius * 2}px`,
-                height: `${coin.radius * 2}px`,
-                borderRadius: '50%',
-                background: 'gold'
-              }}
-            />
-          ))}
-          {bulletsOnMap.map((bullet, index) => (
-            <div
-              key={index}
-              className="bullet"
-              style={{
-                position: 'absolute',
-                left: `${bullet.x}px`,
-                top: `${bullet.y}px`,
-                width: `${bullet.width}px`,
-                height: `${bullet.height}px`,
-                background: 'black'
-              }}
-            />
-          ))}
-          {greenBulletsOnMap.map((greenBullet, index) => (
-            <div
-              key={index}
-              className="green-bullet"
-              style={{
-                position: 'absolute',
-                left: `${greenBullet.x}px`,
-                top: `${greenBullet.y}px`,
-                width: `${greenBullet.width}px`,
-                height: `${greenBullet.height}px`,
-                background: 'green'
-              }}
-            />
-          ))}
-
-          {/* Aquí se muestra la bandera morada */}
-          {flagVisible && (
-            <div
-              style={{
-                position: 'absolute',
-                left: `${flag.x}px`, // Usa la posición x del estado de la bandera
-                top: `${flag.y}px`, // Usa la posición y del estado de la bandera
-                width: '20px',
-                height: '20px',
-                background: 'purple'
-              }}
-            />
-          )}
-
-
-          <p>Balas restantes: {remainingBullets}</p>
-          <button onClick={togglePause}>
-            {isGamePaused ? 'Reanudar' : 'Pausar'}
-          </button>
-          <button onClick={endGame}>Salir</button>
+      <div className="centered-content"> {/* Div para centrar contenido */}        
+        <div className="info-container"> {/* Contenedor para monedas y balas */}
+          <p className="info-text">Monedas actuales: {coins}</p>
+          <p className="info-text">Balas restantes: {remainingBullets}</p>
         </div>
-      )}
-      {!isGameStarted && <button onClick={startGame}>Iniciar Juego</button>}
+      
+        {isGameStarted && (
+          <div className="game-screen">
+            {/* Contenedor para los elementos del juego */}
+            <div className="game-items-container">
+              <img 
+                src="/skins/juan_pueblo.gif" 
+                alt="Jugador" 
+                className="player" 
+                style={{ 
+                  position: 'absolute', 
+                  left: '50px', 
+                  top: `${playerY}px`,  
+                  height: '3cm' 
+                }} 
+              />
+  
+              {obstacles.map((obstacle, index) => (
+                <div key={index} className="barrel-container" style={{ position: 'absolute', left: `${obstacle.x}px`, top: `${obstacle.y}px` }}>
+                  <img
+                    src="/barril.gif"
+                    alt="Obstáculo"
+                    className="obstacle"
+                    style={{
+                      height: '1.5cm'
+                    }}
+                  />
+                </div>
+              ))}
+  
+              {/* Contenedor para monedas */}
+              <div className="coins-container">
+                {coinsOnMap.map((coin, index) => (
+                  <img
+                    key={index}
+                    src="/moneda.gif"
+                    alt="Moneda"
+                    className="coin"
+                    style={{
+                      position: 'absolute',
+                      left: `${coin.x}px`,
+                      top: `${coin.y}px`,
+                      width: '0.8cm'
+                    }}
+                  />
+                ))}
+              </div>
+  
+              {bulletsOnMap.map((bullet, index) => (
+                <div key={index} className="bullet-container" style={{ position: 'absolute', left: `${bullet.x}px`, top: `${bullet.y}px` }}>
+                  <img
+                    src="/verde.png"
+                    alt="Bala"
+                    className="bullet"
+                    style={{
+                      width: '1cm'
+                    }}
+                  />
+                </div>
+              ))}
+  
+              {greenBulletsOnMap.map((greenBullet, index) => (
+                <div key={index} className="green-bullet-container" style={{ position: 'absolute', left: `${greenBullet.x}px`, top: `${greenBullet.y}px` }}>
+                  <img
+                    src="/verdes.png"
+                    alt="Bala Verde"
+                    className="green-bullet"
+                    style={{
+                      width: '1cm',
+                      height: '1cm'
+                    }}
+                  />
+                </div>
+              ))}
+  
+              {/* Contenedor para la bandera */}
+              {flagVisible && (
+                <div className="flag-container">
+                  <img
+                    src="/bandera.gif"
+                    alt="Bandera"
+                    style={{
+                      position: 'absolute',
+                      left: `${flag.x}px`,
+                      top: `${flag.y}px`,
+                      height: '2cm'
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+  
+            <div className="button-container">
+              <button onClick={endGame}>Salir</button>
+            </div>
+          </div>
+        )}
+      
+        {!isGameStarted && <button onClick={startGame}>Iniciar Juego</button>}
+      </div>
     </div>
   );
+    
+  
 };
 
 export default GamePage;

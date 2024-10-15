@@ -1,0 +1,98 @@
+.game-page {
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center;     /* Centrar verticalmente */
+    height: 100vh;          /* Hacer que ocupe toda la altura de la ventana */
+    text-align: center;      /* Centrar el texto */
+    font-family: 'Press Start 2P', cursive; /* Aplicar tipo de letra a toda la página */
+    background-image: url('/public/fondo.png'); /* Ruta a la imagen de fondo */
+    background-size: 20cm; /* Ajustar el tamaño de la imagen a 20cm de ancho y altura completa */
+    background-position: center; /* Centrar la imagen */
+    background-repeat: no-repeat; /* No repetir la imagen */
+    background-color: black;
+    overflow: hidden; /* Evitar desbordamiento */
+}
+
+.centered-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrar verticalmente */
+    align-items: center;     /* Centrar horizontalmente */
+    position: relative;      /* Para posicionar los elementos dentro de este contenedor */
+    width: 20cm; /* Ajustar el ancho para que coincida con el fondo */
+}
+
+.game-screen {
+    position: relative;      /* Posicionar el contenedor de juego */
+    margin-top: -200px;       /* Espacio entre el contenido y el juego */
+    transform: translateX(-1.7cm); /* Mover 8 cm hacia la izquierda */
+}
+
+.info-container {
+    position: absolute;  /* Posicionar en relación a .game-page */
+    top: -3.5cm;            /* A 5 cm desde el centro */
+    left: 50%;           /* Centrar horizontalmente */
+    transform: translateX(-50%); /* Ajustar para centrar perfectamente */
+    display: flex;       /* Alinear horizontalmente */
+    justify-content: center;
+    gap: 10px;           /* Espacio entre los elementos */
+}
+
+.info-text {
+    font-size: 0.8em; 
+    margin: 0; 
+    color: white; /* Asegurar que sea visible sobre fondo oscuro */
+}
+
+.button-container {
+    display: flex;          /* Alinear los botones horizontalmente */
+    justify-content: center; /* Centrar los botones */
+    margin-top: 60px;       /* Margen para colocarlos debajo del texto */
+    gap: 15px;              /* Espacio entre los botones */
+    transform: translateX(50px);
+}
+
+button {
+    margin: 10px;
+    padding: 10px;
+    width: 200px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    font-family: 'Press Start 2P', cursive; /* Aplicar fuente 8 bits */
+}
+
+.game-items-container {
+    position: relative;
+    transform: translateY(50px); /* Ajusta este valor para mover hacia abajo */
+    width: 0vh;
+}
+
+.coins-container {
+    position: relative;
+    transform: translateY(50px); /* Ajusta este valor para mover las monedas hacia abajo */
+}
+
+.flag-container {
+    position: relative;
+    transform: translateY(40px); /* Ajusta este valor para mover la bandera hacia abajo */
+}
+
+.barrel-container {
+    position: relative; 
+    transform: translateY(58px); /* Ajusta este valor para mover los barriles hacia abajo */
+  }
+
+  .bullet-container {
+    position: relative; 
+    transform: translateY(50px); /* Ajusta este valor para mover las balas hacia abajo */
+  }
+
+  .green-bullet-container {
+    position: relative; 
+    transform: translateY(50px); /* Ajusta este valor para mover las balas verdes hacia abajo */
+  }
+  
+  
