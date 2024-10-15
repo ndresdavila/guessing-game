@@ -95,4 +95,46 @@ button {
     transform: translateY(50px); /* Ajusta este valor para mover las balas verdes hacia abajo */
   }
   
+  .instructions h5 {
+    margin: 0;
+    font-size: 0.8rem;
+  }
   
+  .popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 2rem;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+  }
+  
+  .popup-content h2, .popup-content p {
+    margin: 1rem 0;
+    font-size: 18px;
+  }
+  
+  .popup-content button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .popup-content button:hover {
+    background-color: #555;
+  }
+
+  .instrucciones {
+    width: 5cm;
+    color: white;
+    font-size: 0.7rem;
+  }

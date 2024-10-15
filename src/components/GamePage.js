@@ -198,17 +198,14 @@ const GamePage = () => {
             setFlagVisible(true);
           }
         }
-
   
         // Detección de colisión con la bandera
         if (detectFlagCollision()) {
-          alert('¡Felicidades, ganaste!');
           endGame();
         }
   
         // Detección de colisión con obstáculos
         if (detectCollision()) {
-          alert('Perdiste! Reiniciando el juego...');
           startGame();
         }
       }, 100);
@@ -281,7 +278,7 @@ const GamePage = () => {
     // Muestra la bandera después de 10 segundos
     setTimeout(() => {
       setFlagVisible(true);
-    }, 10000);
+    }, 20000);
   };
 
   const togglePause = () => {
@@ -305,6 +302,8 @@ const GamePage = () => {
         <div className="info-container"> {/* Contenedor para monedas y balas */}
           <p className="info-text">Monedas actuales: {coins}</p>
           <p className="info-text">Balas restantes: {remainingBullets}</p>
+          <p className="instrucciones"> Saltar: espacio</p>
+          <p className="instrucciones"> Disparar: F</p>
         </div>
       
         {isGameStarted && (

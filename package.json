@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@openzeppelin/contracts": "^5.0.2",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@truffle/hdwallet-provider": "^2.1.15",
     "dotenv": "^16.4.5",
+    "ethers": "^6.13.4",
     "firebase": "^10.14.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -43,6 +43,9 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@openzeppelin/contracts": "^4.9.6",
+    "hardhat": "^2.22.13",
     "truffle": "^5.11.5"
   }
 }

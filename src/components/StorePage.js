@@ -20,7 +20,7 @@ const StorePage = () => {
 
   const coinPrizeCost = 30;
   const sellPrice = 20;
-  const allPrizes = Array.from({ length: 4 }, (_, i) => `Premio ${i + 1}`);
+  const allPrizes = ['premio1', 'premio2', 'premio3']; // Solo 3 premioss
 
   useEffect(() => {
     loadUserPrizes();
@@ -150,7 +150,8 @@ const StorePage = () => {
     section: {
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'space-between',
+      justifyContent: 'flex-start',
+      gap: '10px',
       width: '100%',
       margin: '0',
       fontSize: '0.75rem', // Agregado para las secciones
@@ -161,8 +162,7 @@ const StorePage = () => {
       flexWrap: 'wrap',
     },
     prizeImage: {
-      width: '0.8cm',
-      height: '0.8cm',
+      height: '1.3cm',
       cursor: 'pointer',
     },
     button: {
@@ -213,7 +213,7 @@ const StorePage = () => {
             {availablePrizes.map((prize) => (
               <img
                 key={prize}
-                src={`/images/${prize}.png`}
+                src={`/premios/${prize}.jpeg`}
                 alt={prize}
                 style={styles.prizeImage}
                 onClick={() => buyCoinPrize(prize)}
@@ -228,7 +228,7 @@ const StorePage = () => {
             {userPrizes.map((prize, index) => (
               <img
                 key={index}
-                src={`/images/${prize}.png`}
+                src={`/premios/${prize}.jpeg`}
                 alt={prize}
                 style={styles.prizeImage}
                 onClick={() => sellPrizeHandler(prize)}
